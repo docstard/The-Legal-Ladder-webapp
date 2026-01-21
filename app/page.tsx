@@ -150,9 +150,6 @@ export default function Home() {
               return <Card key={project.id} i={index} range={[index * 0.25, 1]} progress={scrollYProgress} targetScale={targetScale} {...project} />
             })}
           </div>
-          <div>
-            cdsc
-          </div>
         </section>
         {/* <!-- Free Resources Preview --> */}
         <section className="bg-[#f9f7f2] py-20">
