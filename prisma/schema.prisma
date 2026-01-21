@@ -1,0 +1,327 @@
+// Prisma Schema for The Legal Ladder
+// Production-grade EdTech platform for law students
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// USER MANAGEMENT
+// ============================================
+
+enum UserRole {
+  STUDENT
+  ADMIN
+}
+
+model User {
+  id            String   @id @default(cuid())
+  clerkId       String   @unique // Clerk user ID
+  email         String   @unique
+  firstName     String?
+  lastName      String?
+  role          UserRole @default(STUDENT)
+  state         String?  // For state-wise rankings (Rajasthan, Delhi, UP, etc.)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  enrollments   Enrollment[]
+  attempts      Attempt[]
+  results       Result[]
+
+  @@index([clerkId])
+  @@index([email])
+  @@index([role])
+}
+
+// ============================================
+// EXAM CATEGORIES
+// ============================================
+
+enum ExamCategoryType {
+  JUDICIARY
+  CLAT_PG
+  UGC_NET_LAW
+}
+
+model ExamCategory {
+  id          String           @id @default(cuid())
+  name        String           @unique
+  type        ExamCategoryType
+  description String?
+  isActive    Boolean          @default(true)
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+
+  // Relations
+  mockTests   MockTest[]
+
+  @@index([type])
+  @@index([isActive])
+}
+
+// ============================================
+// COURSES
+// ============================================
+
+enum CourseType {
+  PRIMARY
+  SECONDARY
+  SUBJECT_WISE
+  ADD_ON
+}
+
+enum CourseStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model Course {
+  id          String        @id @default(cuid())
+  title       String
+  description String?
+  type        CourseType
+  status      CourseStatus  @default(ACTIVE)
+  price       Decimal       @default(0) // 0 for free courses
+  isFree      Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  enrollments Enrollment[]
+  mockTests   CourseMockTest[]
+  blogs       Blog[]
+  notes       Note[]
+
+  @@index([status])
+  @@index([type])
+  @@index([isFree])
+}
+
+// ============================================
+// ENROLLMENTS
+// ============================================
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  courseId  String
+  enrolledAt DateTime @default(now())
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, courseId])
+  @@index([userId])
+  @@index([courseId])
+}
+
+// ============================================
+// MOCK TESTS
+// ============================================
+
+enum MockTestType {
+  FULL_LENGTH
+  SECTIONAL
+}
+
+enum MockTestStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model MockTest {
+  id          String          @id @default(cuid())
+  title       String
+  description String?
+  examCategoryId String
+  type        MockTestType
+  unit        String?         // For sectional tests (e.g., "Constitutional Law", "Rajasthan")
+  duration    Int             // Duration in minutes
+  totalMarks  Decimal
+  isFree      Boolean         @default(false)
+  status      MockTestStatus  @default(DRAFT)
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  // Relations
+  examCategory ExamCategory   @relation(fields: [examCategoryId], references: [id])
+  questions    Question[]
+  attempts     Attempt[]
+  courses      CourseMockTest[]
+
+  @@index([examCategoryId])
+  @@index([status])
+  @@index([isFree])
+  @@index([type])
+}
+
+// Mapping table: Courses unlock Mock Tests
+model CourseMockTest {
+  id        String   @id @default(cuid())
+  courseId  String
+  mockTestId String
+
+  // Relations
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  mockTest MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+
+  @@unique([courseId, mockTestId])
+  @@index([courseId])
+  @@index([mockTestId])
+}
+
+// ============================================
+// QUESTIONS
+// ============================================
+
+model Question {
+  id          String   @id @default(cuid())
+  mockTestId  String
+  text        String   // Question text
+  options     String[] // Array of options (JSON stored as array)
+  correctOption Int    // Index of correct option (0-based)
+  marks       Decimal  // Marks for correct answer
+  negativeMarks Decimal @default(0) // Negative marking
+  explanation String?  // Explanation for the answer
+  order       Int      // Order within the test
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  mockTest    MockTest @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  attemptAnswers AttemptAnswer[]
+
+  @@index([mockTestId])
+  @@index([order])
+}
+
+// ============================================
+// ATTEMPTS & RESULTS
+// ============================================
+
+enum AttemptStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  SUBMITTED
+  AUTO_SUBMITTED
+}
+
+model Attempt {
+  id        String        @id @default(cuid())
+  userId    String
+  mockTestId String
+  status    AttemptStatus @default(NOT_STARTED)
+  startedAt DateTime?     // Server-authoritative start time
+  submittedAt DateTime?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  // Relations
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  mockTest  MockTest     @relation(fields: [mockTestId], references: [id], onDelete: Cascade)
+  answers   AttemptAnswer[]
+  result    Result?
+
+  @@unique([userId, mockTestId]) // One active attempt per user per test
+  @@index([userId])
+  @@index([mockTestId])
+  @@index([status])
+}
+
+model AttemptAnswer {
+  id         String   @id @default(cuid())
+  attemptId  String
+  questionId String
+  selectedOption Int? // null if not answered
+  answeredAt DateTime @default(now())
+
+  // Relations
+  attempt    Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId]) // One answer per question per attempt
+  @@index([attemptId])
+  @@index([questionId])
+}
+
+model Result {
+  id            String   @id @default(cuid())
+  userId        String
+  attemptId     String   @unique
+  totalQuestions Int
+  answered      Int      // Number of questions answered
+  correct        Int      // Number of correct answers
+  incorrect      Int      // Number of incorrect answers
+  unattempted    Int      // Number of unattempted questions
+  marksObtained Decimal
+  totalMarks    Decimal
+  percentage    Decimal
+  rank          Int?     // Overall rank (calculated)
+  percentile    Decimal? // Percentile (calculated)
+  createdAt     DateTime @default(now())
+
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  attempt       Attempt  @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@index([marksObtained])
+  @@index([percentage])
+}
+
+// ============================================
+// CONTENT (BLOGS & NOTES)
+// ============================================
+
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+model Blog {
+  id          String      @id @default(cuid())
+  title       String
+  content     String      // HTML content
+  excerpt     String?
+  isFree      Boolean     @default(false)
+  status      BlogStatus  @default(DRAFT)
+  courseId    String?     // If paid, linked to course
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  course      Course?     @relation(fields: [courseId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([isFree])
+  @@index([courseId])
+}
+
+model Note {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  fileUrl     String   // Supabase storage URL
+  fileName    String
+  fileSize    Int      // Size in bytes
+  isFree      Boolean  @default(false)
+  courseId    String?  // If paid, linked to course
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  course      Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
+
+  @@index([isFree])
+  @@index([courseId])
+}
+

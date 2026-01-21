@@ -1,0 +1,222 @@
+{
+    "courses": [
+        {
+            "id": "judiciary-full-course",
+            "exam_category": "judiciary",
+            "course_category": "primary",
+            "title": "Full Comprehensive Judiciary Course",
+            "description": "The ultimate preparation package designed for serious aspirants. Includes complete coverage of all major and minor laws.",
+            "price": 25000,
+            "currency": "INR",
+            "is_featured": true,
+            "features": [
+                "Live Classes",
+                "1:1 Mentoring Sessions",
+                "PDF Notes (All Subjects)",
+                "Case Law Lists (Subject-wise)",
+                "1 Mock Test Every Sunday",
+                "50 Full Length Mock Tests"
+            ]
+        },
+        {
+            "id": "judiciary-specific-subject",
+            "exam_category": "judiciary",
+            "course_category": "secondary",
+            "description": "Perfect for beginners starting their journey.",
+            "sub_description":"12 Months Duration",
+            "title": "Foundation Batch (Judiciary)",
+            "price": 2599,
+            "currency": "INR",
+            "features": [
+                "Live Classes",
+                "5 One-to-One Sessions",
+                "PDF Notes",
+                "10 Subject Mock Tests"
+            ]
+        },
+        {
+            "id": "judiciary-mt-series",
+            "exam_category": "judiciary",
+            "course_category": "basic",
+            "description":"Master the complexities of CPC with flowchart-based learning and practical case studies.",
+            "title": "Mock Test Series (Judiciary)",
+            "icon": "gavel",
+            "price": 10500,
+            "currency": "INR",
+            "meta": {
+                "total_tests": 70,
+                "price_per_test": 150
+            }
+        },
+        {
+            "id": "judiciary-sectional-mts",
+            "exam_category": "judiciary",
+            "course_category": "basic",
+            "title": "Sectional Mock Tests",
+            "description":"Master the complexities of CPC with flowchart-based learning and practical case studies.",
+            "price": 6000,
+            "currency": "INR",
+            "meta": {
+                "total_tests": 50,
+                "price_per_test": 120
+            }
+        },
+        {
+            "id": "judiciary-counselling",
+            "exam_category": "judiciary",
+            "course_category": "addon",
+            "title": "1:1 Counselling Session",
+            "description":"70 Full Length Tests",
+            "price": 499,
+            "currency": "INR",
+            "unit": "per session"
+        },
+        {
+            "id": "judiciary-study-plan",
+            "exam_category": "judiciary",
+            "course_category": "addon",
+            "title": "6 Month Study Plan",
+            "description":"50 Subject-wise Tests",
+            "price": 299,
+            "currency": "INR",
+            "unit": "per plan"
+        },
+        {
+            "id": "clat-pg-full-course",
+            "exam_category": "clat pg",
+            "course_category": "primary",
+            "title": "Full Comprehensive CLAT PG Course",
+            "description": "The ultimate preparation package designed for serious CLAT PG aspirants. Includes complete coverage of all subjects and extensive practice materials.",
+            "price": 25000,
+            "currency": "INR",
+            "is_featured": true,
+            "features": [
+                "Live Classes",
+                "1:1 Mentoring",
+                "PDF Notes",
+                "Case Law Lists",
+                "25 Full Length Mock Tests",
+                "Landmark Judgments (2018-2025)"
+            ]
+        },
+        {
+            "id": "clat-pg-landmark-notes",
+            "exam_category": "clat pg",
+            "course_category": "secondary",
+            "title": "Landmark Judgments Notes",
+            "description": "Comprehensive notes covering all landmark judgments essential for CLAT PG preparation.",
+            "price": 6000,
+            "currency": "INR",
+            "features": [
+                "PDF Notes on Landmark Judgments",
+                "Recent Judgments (2018-2025)"
+            ]
+        },
+        {
+            "id": "clat-pg-mt-series",
+            "exam_category": "clat pg",
+            "course_category": "basic",
+            "title": "CLAT PG Mock Test Series",
+            "price": 5250,
+            "currency": "INR",
+            "description": "Extensive mock test series to evaluate and enhance your CLAT PG preparation.",
+            "meta": {
+                "total_tests": 35,
+                "price_per_test": 150
+            }
+        },
+        {
+            "id": "clat-pg-sectional-mts",
+            "exam_category": "clat pg",
+            "course_category": "basic",
+            "title": "CLAT PG Sectional Mock Tests",
+            "description": "Targeted sectional tests to strengthen specific areas of the CLAT PG syllabus.",
+            "price": 7800,
+            "currency": "INR",
+            "meta": {
+                "total_tests": 65,
+                "price_per_test": 120
+            }
+        },
+        {
+            "id": "state-single",
+            "exam_category": "ugc net",
+            "course_category": "primary",
+            "title": "Single State Judiciary Course",
+            "description": "Comprehensive course covering judiciary syllabus for a single targeted state.",
+            "price": 50000,
+            "currency": "INR",
+            "features": [
+                "Live Lectures",
+                "1:1 Counselling",
+                "PDF Notes",
+                "Weekly Objective Tests",
+                "Descriptive Tests After Each Act",
+                "Legal Drafting & Essay Writing"
+            ]
+        },
+        {
+            "id": "state-two",
+            "exam_category": "ugc net",
+            "course_category": "secondary",
+            "title": "Two State Judiciary Course",
+            "description": "Comprehensive course covering judiciary syllabus for two targeted states.",
+            "price": 65000,
+            "currency": "INR"
+        },
+        {
+            "id": "state-all",
+            "exam_category": "ugc net",
+            "course_category": "basic",
+            "title": "All Targeted States Judiciary Course",
+            "description": "Comprehensive course covering judiciary syllabus for all targeted states.",
+            "price": 80000,
+            "currency": "INR"
+        },
+        {
+            "id": "only-civil-laws",
+            "exam_category": "ugc net",
+            "course_category": "basic",
+            "title": "Only Civil Laws",
+            "description": "In-depth course covering all essential civil laws for the UGC NET exam.",
+            "price": 25599,
+            "currency": "INR"
+        },
+        {
+            "id": "only-criminal-laws",
+            "exam_category": "ugc net",
+            "course_category": "basic",
+            "title": "Only Criminal Laws",
+            "description": "In-depth course covering all essential criminal laws for UGC NET preparation.",
+            "price": 25599,
+            "currency": "INR"
+        },
+        {
+            "id": "only-local-laws",
+            "exam_category": "ugc net",
+            "course_category": "basic",
+            "title": "Only Local Laws",
+            "description": "Comprehensive course focusing solely on local laws relevant to the UGC NET exam.",
+            "price": 15599,
+            "currency": "INR"
+        },
+        {
+            "id": "only-legal-drafting",
+            "exam_category": "ugc net",
+            "course_category": "basic",
+            "description": "Focused course on legal drafting techniques and practices.",
+            "title": "Only Legal Drafting",
+            "price": 15000,
+            "currency": "INR"
+        },
+        {
+            "id": "legal-drafting-mts",
+            "exam_category": "ugc net",
+            "course_category": "basic",
+            "title": "Legal Drafting Mock Tests (10)",
+            "description": "Practice tests focused on legal drafting skills.",
+            "price": 3500,
+            "currency": "INR"
+        }
+    ]
+}

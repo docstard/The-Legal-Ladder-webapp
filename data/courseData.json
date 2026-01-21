@@ -1,0 +1,231 @@
+{
+  "exam_categories": [
+    {
+      "id": "judiciary",
+      "name": "Judiciary",
+      "courses": [
+        {
+          "id": "judiciary-full-course",
+          "title": "Full Comprehensive Judiciary Course",
+          "description": "The ultimate preparation package designed for serious aspirants. Includes complete coverage of all major and minor laws.",
+          "variants": [
+            {
+              "id": "judiciary-full-standard",
+              "name": "Standard Plan",
+              "price": 25000,
+              "currency": "INR",
+              "is_featured": true,
+              "features": [
+                { "name": "Live Classes" },
+                { "name": "1:1 Mentoring Sessions" },
+                { "name": "PDF Notes (All Subjects)" },
+                { "name": "Case Law Lists (Subject-wise)" },
+                { "name": "Weekly Mock Test" },
+                { "name": "50 Full Length Mock Tests" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "judiciary-specific-subject",
+          "title": "Specific Subject Course",
+          "variants": [
+            {
+              "id": "subject-single",
+              "name": "Per Subject",
+              "price": 2599,
+              "currency": "INR",
+              "features": [
+                { "name": "Live Classes" },
+                { "name": "5 One-to-One Sessions" },
+                { "name": "PDF Notes" },
+                { "name": "10 Subject Mock Tests" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "judiciary-mt-series",
+          "title": "Mock Test Series",
+          "variants": [
+            {
+              "id": "judiciary-mt-70",
+              "name": "70 Mock Tests",
+              "price": 10500,
+              "currency": "INR",
+              "meta": { "price_per_test": 150 }
+            }
+          ]
+        },
+        {
+          "id": "judiciary-sectional-mts",
+          "title": "Sectional Mock Tests",
+          "variants": [
+            {
+              "id": "judiciary-sectional-50",
+              "name": "50 Sectional MTs",
+              "price": 6000,
+              "currency": "INR",
+              "meta": { "price_per_test": 120 }
+            }
+          ]
+        }
+      ],
+      "addons": [
+        {
+          "id": "judiciary-counselling",
+          "title": "1:1 Counselling",
+          "price": 499,
+          "unit": "per session"
+        },
+        {
+          "id": "judiciary-study-plan",
+          "title": "6 Month Study Plan",
+          "price": 299,
+          "unit": "per plan"
+        }
+      ]
+    },
+    {
+      "id": "clatpg",
+      "name": "CLAT PG",
+      "courses": [
+        {
+          "id": "clat-pg-full-course",
+          "title": "Full Comprehensive CLAT PG Course",
+          "variants": [
+            {
+              "id": "clat-pg-standard",
+              "name": "Standard Plan",
+              "price": 25000,
+              "currency": "INR",
+              "is_featured": true,
+              "features": [
+                { "name": "Live Classes" },
+                { "name": "1:1 Mentoring" },
+                { "name": "PDF Notes" },
+                { "name": "Case Law Lists" },
+                { "name": "25 Full Length Mock Tests" },
+                { "name": "Recent Landmark Judgments (2018–2025)" }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "clat-pg-landmark-only",
+          "title": "Landmark Judgments Only",
+          "variants": [
+            {
+              "id": "landmark-notes",
+              "name": "PDF Notes Pack",
+              "price": 6000,
+              "currency": "INR"
+            }
+          ]
+        },
+        {
+          "id": "clat-pg-mt-series",
+          "title": "Mock Test Series",
+          "variants": [
+            {
+              "id": "clat-pg-mt-35",
+              "name": "35 Mock Tests",
+              "price": 5250,
+              "currency": "INR",
+              "meta": { "price_per_test": 150 }
+            }
+          ]
+        },
+        {
+          "id": "clat-pg-sectional-mts",
+          "title": "Sectional Mock Tests",
+          "variants": [
+            {
+              "id": "clat-pg-sectional-65",
+              "name": "65 Sectional MTs",
+              "price": 7800,
+              "currency": "INR",
+              "meta": { "price_per_test": 120 }
+            }
+          ]
+        }
+      ],
+      "addons": [
+        {
+          "id": "clat-pg-counselling",
+          "title": "1:1 Counselling",
+          "price": 499,
+          "unit": "per session"
+        },
+        {
+          "id": "clat-pg-study-plan",
+          "title": "6 Month Study Plan",
+          "price": 299,
+          "unit": "per plan"
+        }
+      ]
+    },
+    {
+      "id": "state-judiciary",
+      "name": "State Judiciary",
+      "courses": [
+        {
+          "id": "state-judiciary-full",
+          "title": "State Judiciary Courses",
+          "variants": [
+            {
+              "id": "single-state",
+              "name": "Single State",
+              "price": 50000,
+              "features": [
+                { "name": "Live Lectures" },
+                { "name": "1:1 Counselling" },
+                { "name": "PDF Notes" },
+                { "name": "Weekly Objective Tests" },
+                { "name": "Descriptive Tests After Each Act" },
+                { "name": "Legal Drafting & Essay Writing" }
+              ]
+            },
+            {
+              "id": "two-states",
+              "name": "Two States",
+              "price": 65000
+            },
+            {
+              "id": "all-states",
+              "name": "All Targeted States",
+              "price": 80000
+            }
+          ]
+        }
+      ],
+      "addons": [
+        {
+          "id": "only-civil-laws",
+          "title": "Only Civil Laws",
+          "price": 25599
+        },
+        {
+          "id": "only-criminal-laws",
+          "title": "Only Criminal Laws",
+          "price": 25599
+        },
+        {
+          "id": "only-local-laws",
+          "title": "Only Local Laws",
+          "price": 15599
+        },
+        {
+          "id": "only-legal-drafting",
+          "title": "Only Legal Drafting",
+          "price": 15000
+        },
+        {
+          "id": "legal-drafting-mts",
+          "title": "Legal Drafting Mock Tests (10)",
+          "price": 3500
+        }
+      ]
+    }
+  ]
+}
