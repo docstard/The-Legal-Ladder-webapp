@@ -8,10 +8,10 @@ import { syncUser } from "@/lib/auth";
  */
 export async function GET(
   request: Request,
-  { params }: { params: { noteId: string } }
+  { params }: { params: Promise<{ noteId: string }> }
 ) {
   try {
-    const { noteId } = params;
+    const { noteId } = await params;
 
     const note = await prisma.note.findUnique({
       where: { id: noteId },
