@@ -182,32 +182,107 @@ async function main() {
   }
 
   // =========================
-  // 7. QUESTIONS
+  // 7. QUESTIONS (Multiple questions for full test)
   // =========================
-  const question =
-    (await prisma.question.findFirst({
-      where: {
-        mockTestId: fullLengthTest.id,
-        order: 1,
-      },
-    })) ??
-    (await prisma.question.create({
-      data: {
-        mockTestId: fullLengthTest.id,
-        text: "Article 14 of the Indian Constitution deals with?",
-        options: [
-          "Right to Equality",
-          "Right to Freedom",
-          "Right against Exploitation",
-          "Right to Religion",
-        ],
-        correctOption: 0,
-        marks: 1,
-        negativeMarks: 0.25,
-        explanation: "Article 14 guarantees equality before law.",
-        order: 1,
-      },
-    }));
+  const questionsData = [
+    {
+      text: "Article 14 of the Indian Constitution deals with?",
+      options: ["Right to Equality", "Right to Freedom", "Right against Exploitation", "Right to Religion"],
+      correctOption: 0,
+      explanation: "Article 14 guarantees equality before law and equal protection of laws within the territory of India.",
+      order: 1,
+    },
+    {
+      text: "Who appoints the Chief Justice of India?",
+      options: ["Prime Minister", "President of India", "Parliament", "Law Minister"],
+      correctOption: 1,
+      explanation: "The President of India appoints the Chief Justice of India under Article 124.",
+      order: 2,
+    },
+    {
+      text: "Which Article of the Constitution abolishes untouchability?",
+      options: ["Article 15", "Article 16", "Article 17", "Article 18"],
+      correctOption: 2,
+      explanation: "Article 17 abolishes untouchability and forbids its practice in any form.",
+      order: 3,
+    },
+    {
+      text: "The concept of 'Judicial Review' in India is borrowed from?",
+      options: ["UK", "USA", "Canada", "Australia"],
+      correctOption: 1,
+      explanation: "The concept of Judicial Review is borrowed from the USA Constitution.",
+      order: 4,
+    },
+    {
+      text: "Which part of the Constitution deals with Fundamental Rights?",
+      options: ["Part II", "Part III", "Part IV", "Part V"],
+      correctOption: 1,
+      explanation: "Part III of the Indian Constitution (Articles 12-35) deals with Fundamental Rights.",
+      order: 5,
+    },
+  ];
+
+  for (const qData of questionsData) {
+    const existingQ = await prisma.question.findFirst({
+      where: { mockTestId: fullLengthTest.id, order: qData.order },
+    });
+    if (!existingQ) {
+      await prisma.question.create({
+        data: {
+          mockTestId: fullLengthTest.id,
+          text: qData.text,
+          options: qData.options,
+          correctOption: qData.correctOption,
+          marks: 1,
+          negativeMarks: 0.25,
+          explanation: qData.explanation,
+          order: qData.order,
+        },
+      });
+    }
+  }
+
+  // Questions for sectional test
+  const sectionalQuestionsData = [
+    {
+      text: "The Preamble of the Indian Constitution declares India as?",
+      options: ["Sovereign Socialist Democratic Republic", "Sovereign Socialist Secular Democratic Republic", "Federal Democratic Republic", "Socialist Republic"],
+      correctOption: 1,
+      explanation: "The Preamble declares India as a Sovereign Socialist Secular Democratic Republic.",
+      order: 1,
+    },
+    {
+      text: "Which amendment added 'Socialist' and 'Secular' to the Preamble?",
+      options: ["42nd Amendment", "44th Amendment", "52nd Amendment", "61st Amendment"],
+      correctOption: 0,
+      explanation: "The 42nd Amendment Act, 1976 added the words 'Socialist' and 'Secular' to the Preamble.",
+      order: 2,
+    },
+  ];
+
+  for (const qData of sectionalQuestionsData) {
+    const existingQ = await prisma.question.findFirst({
+      where: { mockTestId: sectionalTest.id, order: qData.order },
+    });
+    if (!existingQ) {
+      await prisma.question.create({
+        data: {
+          mockTestId: sectionalTest.id,
+          text: qData.text,
+          options: qData.options,
+          correctOption: qData.correctOption,
+          marks: 1,
+          negativeMarks: 0.25,
+          explanation: qData.explanation,
+          order: qData.order,
+        },
+      });
+    }
+  }
+
+  const question = await prisma.question.findFirst({
+    where: { mockTestId: fullLengthTest.id, order: 1 },
+  });
 
   // =========================
   // 8. ATTEMPT
