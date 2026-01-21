@@ -3,9 +3,28 @@
  * Handles all API calls to the server
  */
 
-const API_BASE_URL = 
-// process.env.NEXT_PUBLIC_API_URL ||
-                 "http://localhost:3000/api";
+// Automatic environment detection
+const getApiBaseUrl = () => {
+  // 1. If explicitly set, use that
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  
+  // 2. In browser, use relative path (works in both dev and production)
+  if (typeof window !== 'undefined') {
+    return '/api';
+  }
+  
+  // 3. Server-side fallback
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 
+    (process.env.NODE_ENV === 'production'
+      ? 'https://yourdomain.com'
+      : 'http://localhost:3000');
+  
+  return `${appUrl}/api`;
+};
+
+const API_BASE_URL = getApiBaseUrl();
 
 /**
  * Get authentication headers
