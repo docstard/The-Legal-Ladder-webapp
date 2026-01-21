@@ -38,9 +38,14 @@ next-env.d.ts
 
 # prisma
 prisma/.env
-
-# yarn
-yarn.lock
+-e 
+# Environment files
+*.env
+*.env.*
+-e 
+# Environment files
+*.env
+*.env.*
 -e 
 # Environment files
 *.env
