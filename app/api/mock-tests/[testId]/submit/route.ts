@@ -5,10 +5,10 @@ import { AttemptStatus } from "@prisma/client";
 
 export async function POST(
   req: Request,
-  { params }: { params: { testId: string } }
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   const user = await requireAuth();
-  const testId = params.testId;
+  const { testId } = await params;
 
   const attempt = await prisma.attempt.findUnique({
     where: { userId_mockTestId: { userId: user.id, mockTestId: testId } },

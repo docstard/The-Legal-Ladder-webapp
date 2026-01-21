@@ -5,10 +5,10 @@ import { AttemptStatus } from "@prisma/client";
 
 export async function POST(
   req: Request,
-  { params }: { params: { testId: string } }
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   const user = await requireAuth();
-  const testId = params.testId;
+  const { testId } = await params;
 
   if (!(await hasMockTestAccess(user.id, testId))) {
     return NextResponse.json({ error: "Access denied" }, { status: 403 });

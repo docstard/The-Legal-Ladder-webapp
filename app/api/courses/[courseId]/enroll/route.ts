@@ -4,21 +4,22 @@ import { requireAuth } from "@/lib/auth";
 
 export async function POST(
   req: Request,
-  { params }: { params: { courseId: string } }
+  { params }: { params: Promise<{ courseId: string }> }
 ) {
   const user = await requireAuth();
+  const { courseId } = await params;
 
   const enrollment = await prisma.enrollment.upsert({
     where: {
       userId_courseId: {
         userId: user.id,
-        courseId: params.courseId,
+        courseId: courseId,
       },
     },
     update: {},
     create: {
       userId: user.id,
-      courseId: params.courseId,
+      courseId: courseId,
     },
   });
 

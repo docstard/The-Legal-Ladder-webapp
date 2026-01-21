@@ -3,28 +3,29 @@ import { requireAdmin } from "@/lib/auth"
 import { NextResponse } from "next/server"
 
 export async function GET(
-  req: any,
-  { params }: any
+  req: Request,
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   await requireAdmin()
+  const { testId } = await params;
 
   const test = await prisma.mockTest.findUnique({
-    where: { id: params.testId },
+    where: { id: testId },
   })
 
   return NextResponse.json(test)
 }
 
 export async function PUT(
-  req: { json: () => any },
-  { params }: any
+  req: Request,
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   await requireAdmin()
-
+  const { testId } = await params;
   const body = await req.json()
 
   const updated = await prisma.mockTest.update({
-    where: { id: params.testId },
+    where: { id: testId },
     data: body,
   })
 

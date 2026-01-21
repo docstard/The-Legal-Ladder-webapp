@@ -5,10 +5,10 @@ import { getAttemptStatus } from "@/lib/test-utils";
 
 export async function GET(
   req: Request,
-  { params }: { params: { testId: string } }
+  { params }: { params: Promise<{ testId: string }> }
 ) {
   const user = await getAuthenticatedUser();
-  const testId = params.testId;
+  const { testId } = await params;
 
   const mockTest = await prisma.mockTest.findUnique({
     where: { id: testId },
