@@ -354,6 +354,108 @@ async function main() {
       },
     });
   }
+  
+  // =========================
+  // 11. BLOGS
+  // =========================
+  const blogs = [
+    {
+      title: "The Art of Cross-Examination",
+      excerpt: "Master the techniques that can make or break a case in the courtroom.",
+      content: `<h2>Introduction to Cross-Examination</h2>
+        <p>Cross-examination is one of the most powerful tools in a lawyer's arsenal. It can reveal the truth, expose lies, and completely change the direction of a trial.</p>
+        <h3>Key Techniques</h3>
+        <ol>
+          <li><strong>Prepare thoroughly:</strong> Know every detail of the case</li>
+          <li><strong>Control the witness:</strong> Ask leading questions</li>
+          <li><strong>Listen carefully:</strong> Adapt to unexpected answers</li>
+          <li><strong>Stay composed:</strong> Never show frustration</li>
+        </ol>
+        <p>Mastering these techniques takes years of practice and dedication.</p>`,
+      isFree: true,
+      status: "PUBLISHED",
+    },
+    {
+      title: "Navigating Corporate Law in 2024",
+      excerpt: "An overview of the emerging trends and challenges for corporate lawyers.",
+      content: `<h2>Corporate Law Landscape</h2>
+        <p>The corporate legal landscape is evolving rapidly with new regulations, technology, and global challenges.</p>
+        <h3>Key Trends in 2024</h3>
+        <ul>
+          <li>ESG compliance and sustainability</li>
+          <li>Data privacy regulations</li>
+          <li>Cross-border M&A complexities</li>
+          <li>AI in contract management</li>
+        </ul>`,
+      isFree: true,
+      status: "PUBLISHED",
+    },
+    {
+      title: "Understanding Intellectual Property",
+      excerpt: "A primer on patents, trademarks, and copyrights for aspiring law students.",
+      content: `<h2>Intellectual Property Basics</h2>
+        <p>Intellectual Property (IP) law protects creations of the mind, including inventions, literary works, designs, symbols, and names.</p>
+        <h3>Types of IP</h3>
+        <ul>
+          <li><strong>Patents:</strong> Protect inventions and innovations</li>
+          <li><strong>Trademarks:</strong> Protect brand names and logos</li>
+          <li><strong>Copyrights:</strong> Protect original creative works</li>
+          <li><strong>Trade Secrets:</strong> Protect confidential business information</li>
+        </ul>`,
+      isFree: true,
+      status: "PUBLISHED",
+    },
+  ];
+
+  for (const blogData of blogs) {
+    const existingBlog = await prisma.blog.findFirst({
+      where: { title: blogData.title },
+    });
+    if (!existingBlog) {
+      await prisma.blog.create({ data: blogData });
+    }
+  }
+
+  // =========================
+  // 12. NOTES
+  // =========================
+  const notes = [
+    {
+      title: "Constitutional Law - Comprehensive Notes",
+      description: "Detailed notes covering all major articles and amendments",
+      fileUrl: "/notes/constitutional-law.pdf",
+      fileName: "constitutional-law.pdf",
+      fileSize: 2048000,
+      isFree: true,
+    },
+    {
+      title: "Contract Law Case Studies",
+      description: "Important landmark judgments in contract law",
+      fileUrl: "/notes/contract-law-cases.pdf",
+      fileName: "contract-law-cases.pdf",
+      fileSize: 1536000,
+      isFree: true,
+    },
+    {
+      title: "Criminal Procedure Code Notes",
+      description: "Complete CrPC notes with important sections",
+      fileUrl: "/notes/crpc-notes.pdf",
+      fileName: "crpc-notes.pdf",
+      fileSize: 3072000,
+      isFree: false,
+      courseId: judiciaryCourse.id,
+    },
+  ];
+
+  for (const noteData of notes) {
+    const existingNote = await prisma.note.findFirst({
+      where: { title: noteData.title },
+    });
+    if (!existingNote) {
+      await prisma.note.create({ data: noteData });
+    }
+  }
+
   console.log("✅ Seeding completed successfully");
 }
 
