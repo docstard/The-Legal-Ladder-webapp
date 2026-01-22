@@ -11,11 +11,11 @@ const TestCard = ({ test }: any) => {
     }
 
     if (test.attemptStatus === "SUBMITTED" || test.attemptStatus === "AUTO_SUBMITTED") {
-      router.push(`/tests/${test.id}/result`);
+      router.push(`/tests/${test.id}/results`);
     } else if (test.attemptStatus === "IN_PROGRESS") {
-      router.push(`/tests/${test.id}/play`);
+      router.push(`/tests/${test.id}/take`);
     } else {
-      router.push(`/tests/${test.id}/start`);
+      router.push(`/tests/${test.id}/take`);
     }
   }
 
